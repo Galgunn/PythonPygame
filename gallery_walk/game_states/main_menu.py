@@ -9,23 +9,33 @@ class MainMenu(State):
         super().__init__(game)
         self.font = FONT
         self.center_display = (DISPLAY_SIZE[0] / 2, DISPLAY_SIZE[1] / 2)
-        self.text_surf = self.font.render('yeah', True, 'black')
-        self.selected_text_surf = self.font.render('yeah', True, 'white')
-        self.text_rect = self.text_surf.get_frect(center= self.center_display)
-        self.on_text_rect = False
+        self.menu_text_options = ['Start', 'Options', 'Credits', 'Exit']
+        self.initialize_fonts()
+        
+    def initialize_fonts(self): # Initializes the font surfaces aswell as rect with their respective pos
+        self.menu_fonts_surf = {}
+        pos = self.center_display
+        for option in self.menu_text_options:
+            font_surf = self.font.render(option, True, 'black')
+            font_highlight_surf = self.font.render(option, True, 'white')
+            font_rect = font_surf.get_frect(center = pos)
+            self.menu_fonts_surf[option] = {'text': font_surf, 'highlight': font_highlight_surf, 'rect': font_rect, 'on_font': False}
+            pos = (pos[0], pos[1] + 25)
+
+    def check_option_collision(self, mpos): # Check for collision with any of the font rects
+        for option in self.menu_fonts_surf:
+            self.menu_fonts_surf[option]['on_font'] = False
+            if self.menu_fonts_surf[option]['rect'].collidepoint(mpos):
+                self.menu_fonts_surf[option]['on_font'] = True
 
     def update(self):
-
-        self.on_text_rect = False
-
         mpos = pygame.mouse.get_pos()
         mpos = (mpos[0] / 2, mpos[1] / 2)
-
-        if self.text_rect.collidepoint(mpos):
-            self.on_text_rect = True
+        self.check_option_collision(mpos)
 
     def render(self, surf):
         surf.fill(('green'))
-        if self.on_text_rect:
-            surf.blit(self.selected_text_surf, (self.text_rect.x + 1, self.text_rect.y + 1))
-        surf.blit(self.text_surf, (self.text_rect))
+        for option in self.menu_fonts_surf:
+            if self.menu_fonts_surf[option]['on_font']:
+                surf.blit(self.menu_fonts_surf[option]['highlight'], (self.menu_fonts_surf[option]['rect'].x + 1, self.menu_fonts_surf[option]['rect'].y + 1))
+            surf.blit(self.menu_fonts_surf[option]['text'], self.menu_fonts_surf[option]['rect'])
