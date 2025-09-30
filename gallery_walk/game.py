@@ -1,4 +1,4 @@
-from game_states.main_menu import MainMenu
+from game_states.menus.main_menu import MainMenu
 from scripts.utils import *
 import pygame, sys
 pygame.init()
@@ -15,7 +15,6 @@ class Game:
         self.state_stack = []
 
         self.state_interaction_options = {
-            'enter': {'just_pressed': False},
             'escape': {'just_pressed': False},
             'left_click': {'just_pressed': False},
         }
@@ -44,8 +43,6 @@ class Game:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         self.state_interaction_options['left_click']['just_pressed'] = True
-                if event.type == pygame.K_UP:
-                    pass
 
             self.update()
             self.render()

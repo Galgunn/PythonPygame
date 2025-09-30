@@ -3,7 +3,8 @@ import pygame, os
 pygame.init()
 
 SCREEN_SIZE:tuple = (600, 600)
-DISPLAY_SIZE:tuple = (300, 300) # Half of screen size
+DISPLAY_SIZE:tuple = (300, 300) # Half of screen size 
+DISPLAY_CENTER:tuple = (DISPLAY_SIZE[0] / 2, DISPLAY_SIZE[1] / 2)
 FONT:pygame.Font = pygame.font.SysFont('consolas', 20)
 BASE_IMG_PATH:str = 'assets/images/'
 
