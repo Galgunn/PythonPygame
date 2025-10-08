@@ -18,10 +18,10 @@ class MainMenu(State):
         mpos = pygame.mouse.get_pos()
         mpos = (mpos[0] / 2, mpos[1] / 2)
         self.font_options.update(mpos)
-        if self.font_options.got_pressed('Start'):
+        if self.font_options.get_mouse_pressed('Start'):
             game_running_state = GameRunning(self.game)
             game_running_state.enter_state()
-        if self.font_options.got_pressed('Settings'):
+        if self.font_options.get_mouse_pressed('Settings'):
             settings_menu_state = SettingMenu(self.game)
             settings_menu_state.enter_state()
 

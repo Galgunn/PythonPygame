@@ -31,10 +31,15 @@ class MenuOptions():
             if self.font_dict[option]['rect'].collidepoint(mpos):
                 self.font_dict[option]['on_font'] = True
 
-    def got_pressed(self, text_option: str) -> bool:
+    def get_mouse_pressed(self, text_option: str) -> bool:
         if self.game.state_interaction_options['left_click']['just_pressed'] and self.font_dict[text_option]['on_font']:
             return True
-        return False    
+        return False
+    
+    def get_key_pressed(self) -> bool:
+        if self.game.state_interaction_options['escape']['just_pressed']:
+            return True
+        return False
     
     def render(self, surf):
         for option in self.font_dict:

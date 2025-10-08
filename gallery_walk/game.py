@@ -1,4 +1,4 @@
-from game_states.menus.main_menu import MainMenu
+from game_states.main_menu import MainMenu
 from scripts.utils import *
 import pygame, sys
 pygame.init()
