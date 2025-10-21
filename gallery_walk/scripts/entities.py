@@ -23,7 +23,7 @@ class Entity:
     #         self.action = action
     #         self.animation = self.game.assets[self.type + '/' + self.action].copy()
 
-    def update(self, tilemap, movement=(0, 0)):
+    def update(self, movement=(0, 0)):
         self.collisions = {'left': False, 'right': False, 'up': False, 'down': False}
         frame_movement = pygame.math.Vector2(movement)
         if frame_movement.magnitude() != 0:

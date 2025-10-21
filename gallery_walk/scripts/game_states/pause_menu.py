@@ -2,7 +2,7 @@ import pygame
 from scripts.state import State
 from scripts.utils import *
 from scripts.menu_options import MenuOptions
-from game_states.setting_menu import SettingMenu
+from scripts.game_states.setting_menu import SettingMenu
 
 pygame.init()
 
