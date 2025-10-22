@@ -44,7 +44,7 @@ class Tilemap:
 
         return matches
 
-    def tiles_around(self, pos, map) -> list:
+    def tiles_around(self, pos, map) -> list: # Gotta figure out how this works again ;-;
         tiles = []
         tile_loc = (int(pos[0] // self.tile_size), int(pos[1] // self.tile_size))
         for offset in NEIGHBOR_OFFSETS:

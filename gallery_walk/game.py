@@ -19,15 +19,22 @@ class Game:
         self.display = pygame.Surface((SCREEN_WIDTH / 2, SCREEN_LENGHT / 2))
         self.running = True
         self.state_stack = []
-        self.movement = [False, False, False, False]
 
         self.state_interaction_options = {
             'escape': {'just_pressed': False},
             'left_click': {'just_pressed': False},
         }
 
+        self.movement = {
+            'up': False,
+            'down': False,
+            'left': False,
+            'right': False
+        }
+
         self.assets = {
-            'none': None
+            'wall': load_images('tiles/wall'),
+            'floor': load_images('tiles/floor')
         }
 
         self.load_state()
@@ -69,22 +76,22 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         self.state_interaction_options['escape']['just_pressed'] = True
                     if event.key == pygame.K_a:
-                        self.movement[0] = True
+                        self.movement['left'] = True
                     if event.key == pygame.K_d:
-                        self.movement[1] = True
+                        self.movement['right'] = True
                     if event.key == pygame.K_w:
-                        self.movement[2] = True
+                        self.movement['up'] = True
                     if event.key == pygame.K_s:
-                        self.movement[3] = True
+                        self.movement['down'] = True
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_a:
-                        self.movement[0] = False
+                        self.movement['left'] = False
                     if event.key == pygame.K_d:
-                        self.movement[1] = False
+                        self.movement['right'] = False
                     if event.key == pygame.K_w:
-                        self.movement[2] = False
+                        self.movement['up'] = False
                     if event.key == pygame.K_s:
-                        self.movement[3] = False
+                        self.movement['down'] = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         self.state_interaction_options['left_click']['just_pressed'] = True

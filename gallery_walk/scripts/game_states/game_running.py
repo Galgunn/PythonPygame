@@ -18,7 +18,7 @@ class GameWorld(State):
             if event.type == pygame.K_DOWN:
                 if event.key == pygame.K_f:
                     print('yes')
-        self.player.update([self.game.movement[1] - self.game.movement[0], self.game.movement[3] - self.game.movement[2]])
+        self.player.update([self.game.movement['right'] - self.game.movement['left'], self.game.movement['down'] - self.game.movement['up']])
 
         if self.game.state_interaction_options['escape']['just_pressed']:
             pause_menu_state = PauseMenu(self.game)
