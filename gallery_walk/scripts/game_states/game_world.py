@@ -1,6 +1,8 @@
-import pygame, sys
+import pygame
 from scripts.state import State
 from scripts.entities import Player
+from scripts.tilemap import Tilemap
+from scripts.game_states.pause_menu import PauseMenu
 pygame.init()
 
 class GameWorld(State):
@@ -9,29 +11,15 @@ class GameWorld(State):
         self.player_surf = pygame.Surface((25, 25))
         self.player_rect = self.player_surf.get_frect()
         self.player = Player(game, (20, 20), (25, 25), self.player_surf)
-
-        self.movement = [False, False, False, False]
+        self.tilemap = Tilemap(self.game)
 
     def update(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a:
-                    self.movement[0] = True
-                if event.key == pygame.K_d:
-                    self.movement[1] = True
-                if event.key == pygame.K_w:
-                    self.movement[2] = True
-                if event.key == pygame.K_s:
-                    self.movement[3] = True
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_a:
-                    self.movement[0] = False
-                if event.key == pygame.K_d:
-                    self.movement[1] = False
-                if event.key == pygame.K_w:
-                    self.movement[2] = False
-                if event.key == pygame.K_s:
-                    self.movement[3] = False
+        self.player.update([self.game.movement['right'] - self.game.movement['left'], self.game.movement['down'] - self.game.movement['up']])
+
+        if self.game.state_interaction_options['escape']['just_pressed']:
+            pause_menu_state = PauseMenu(self.game)
+            pause_menu_state.enter_state()
+
+    def render(self, surf):
+        surf.fill('red')
+        self.player.render(surf)
