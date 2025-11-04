@@ -11,7 +11,7 @@ SCREEN_SIZE:tuple = (600, 400)
 screen:pygame.display
 display:pygame.Surface 
 clock:pygame.time
-running:bool 
+running:bool
 movement:list # Player movement
 player_surf:pygame.Surface
 player_rect:pygame.FRect
@@ -26,11 +26,17 @@ player_surf = pygame.Surface((25, 25))
 player_rect = player_surf.get_rect(topleft=(50, 50)) # NOTE display is being scaled 2x 
 
 while running:
+    # Bliting/rendering to display
     display.fill('blue')
     display.blit(player_surf, player_rect)
-    print(movement)
+    
+    # Calculating and updating position
+    player_movement = (movement[1] - movement[0], movement[3] - movement[2])
+    player_rect.x += player_movement[0]
+    player_rect.y += player_movement[1]
 
-    screen.blit(pygame.transform.scale(display, SCREEN_SIZE), (0, 0)) # Scales 
+    # Scaling to screen/game window
+    screen.blit(pygame.transform.scale(display, SCREEN_SIZE), (0, 0))
 
     # Event handler
     for event in pygame.event.get():
